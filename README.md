@@ -1,10 +1,45 @@
 # BA Assessment — Faidon
 
-Junior AI Engineer take-home assessment: an end-to-end invoice processing system built with Python, FastAPI, and the Anthropic SDK.
+An end-to-end invoice processing system built with Python, FastAPI, and the Anthropic SDK.
+
+## Architecture
+
+```mermaid
+graph LR
+    subgraph Inputs
+        A[Raw German Text] -->|POST /invoices/extract| E[LLM Extraction]
+        B[Flat CSV Dicts] -->|POST /invoices/transform| T[Transformer]
+        C[Natural Language Query] -->|POST /invoices/query| AG[AI Agent]
+    end
+
+    subgraph Core
+        E --> V[Pydantic Validation]
+        T --> V
+        V --> S[(In-Memory Store)]
+        AG -->|tool calls| Tools[search / details / calculate]
+        Tools --> S
+    end
+
+    subgraph Output
+        S -->|GET /invoices| JSON[Validated Invoice JSON]
+        AG --> Answer[Agent Response]
+    end
+```
+
+## Implementation Roadmap
+
+- [x] **Phase 1** — Pydantic v2 schemas (`models.py`)
+- [x] **Phase 2** — Data transformation: flat CSV dicts → nested JSON (`section-3/transform.py`)
+- [ ] **Phase 3** — LLM extraction: raw German text → validated JSON (`section-1/extract.py`)
+- [ ] **Phase 4** — AI agent with native tool use (`section-2/agent.py`)
+- [ ] **Phase 5** — FastAPI endpoints, Dockerfile, pytest suite (`section-5/`)
+- [ ] **Written** — Conceptual questions (`section-1/answers.md`)
+- [ ] **Written** — System design answers (`section-4/design.md`)
 
 ## Project Structure
 
 ```
+models.py             # Pydantic v2 schemas (shared across sections)
 /section-1/
   extract.py          # 1A — LLM-based structured data extraction
   answers.md          # 1B — Conceptual questions
@@ -18,7 +53,6 @@ Junior AI Engineer take-home assessment: an end-to-end invoice processing system
   app.py              # FastAPI application
   tests/              # Pytest suite
   Dockerfile
-models.py             # Pydantic v2 schemas (shared across sections)
 requirements.txt
 README.md
 ```
