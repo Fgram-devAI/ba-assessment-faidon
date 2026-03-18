@@ -1,0 +1,20 @@
+Rechnung Nr. 2024-0892
+Datum: 15.03.2024
+Von:
+TechSolutions GmbH
+Musterstrasse 42
+10115 Berlin
+USt-IdNr.: DE123456789
+An:
+Digital Services AG
+Hauptweg 7
+80331 Munchen
+USt-IdNr.: DE987654321
+Pos. 1: Cloud Hosting Premium (Jan-Mar 2024) - 3 x 450,00 EUR = 1.350,00 EUR
+Pos. 2: SSL-Zertifikat Erneuerung - 1 x 89,50 EUR = 89,50 EUR
+Pos. 3: Technischer Support (15 Stunden) - 15 x 95,00 EUR = 1.425,00 EUR
+Nettobetrag: 2.864,50 EUR
+USt. 19%: 544,26 EUR
+Bruttobetrag: 3.408,76 EUR
+Zahlungsziel: 30 Tage
+Bankverbindung: IBAN DE89 3704 0044 0532 0130 00
