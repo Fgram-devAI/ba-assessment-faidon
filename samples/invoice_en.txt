@@ -1,0 +1,20 @@
+Invoice No. 2024-1055
+Date: 22/04/2024
+From:
+CloudBridge Ltd
+14 Baker Street
+London EC1A 1BB
+VAT ID: GB123456789
+To:
+Acme Corp
+200 Park Avenue
+New York, NY 10166
+VAT ID: US987654321
+Item 1: Annual SaaS License - 1 x 4,800.00 EUR = 4,800.00 EUR
+Item 2: Onboarding & Training - 2 x 600.00 EUR = 1,200.00 EUR
+Item 3: Premium Support (12 months) - 12 x 150.00 EUR = 1,800.00 EUR
+Net Total: 7,800.00 EUR
+VAT 19%: 1,482.00 EUR
+Gross Total: 9,282.00 EUR
+Payment Terms: 45 days
+Bank Details: IBAN GB29 NWBK 6016 1331 9268 19

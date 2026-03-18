@@ -1,10 +1,3 @@
-"""
-Section 3: API Integration & Data Transformation
-
-Transforms System A flat records (one dict per line item) into
-System B nested Invoice JSON, validated through Pydantic models.
-"""
-
 import sys
 import json
 from pathlib import Path
