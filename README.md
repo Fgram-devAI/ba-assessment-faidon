@@ -31,8 +31,8 @@ graph LR
 - [x] **Phase 1** — Pydantic v2 schemas (`models.py`)
 - [x] **Phase 2** — Data transformation: flat CSV dicts → nested JSON (`section-3/transform.py`)
 - [x] **Phase 3** — LLM extraction: raw text → validated JSON (`section-1/extract.py`)
-- [x] **Tests** — Unit tests for models, transform, and extraction pipeline (`tests/`)
-- [ ] **Phase 4** — AI agent with native tool use (`section-2/agent.py`)
+- [x] **Phase 4** — AI agent with native tool-use loop + conversation memory (`section-2/agent.py`)
+- [x] **Tests** — Unit tests for models, transform, extraction, and agent (`tests/`)
 - [ ] **Phase 5** — FastAPI endpoints, Dockerfile, pytest suite (`section-5/`)
 - [ ] **Written** — Conceptual questions (`section-1/answers.md`)
 - [ ] **Written** — System design answers (`section-4/design.md`)
@@ -61,6 +61,7 @@ models.py             # Pydantic v2 schemas (shared across sections)
   test_models.py      # Pydantic model validation tests
   test_transform.py   # Data transformation tests
   test_extract.py     # LLM extraction pipeline tests (mocked + real API)
+  test_agent.py       # Agent tool functions + dispatch + API tests
 requirements.txt
 README.md
 ```
@@ -120,6 +121,25 @@ python section-1/extract.py samples/invoice_en.txt -p gemini
 # Pipe from stdin
 cat samples/invoice_de.txt | python section-1/extract.py
 ```
+
+### Section 2 — AI Agent (Interactive CLI)
+
+```bash
+# Start the interactive agent (default: Anthropic)
+python section-2/agent.py
+
+# Switch provider
+python section-2/agent.py -p openai
+python section-2/agent.py -p gemini
+```
+
+The agent supports multi-step reasoning and remembers context across turns. Example queries:
+
+- "What's the total amount owed by Digital Services AG across all their invoices?"
+- "Which invoices are overdue?"
+- "Show me the details of INV-003 and tell me what percentage of the total is from training"
+
+Type `exit`, `quit`, or `bye` to end the session.
 
 ### Section 3 — Data Transformation
 
