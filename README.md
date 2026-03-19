@@ -32,8 +32,8 @@ graph LR
 - [x] **Phase 2** — Data transformation: flat CSV dicts → nested JSON (`section-3/transform.py`)
 - [x] **Phase 3** — LLM extraction: raw text → validated JSON (`section-1/extract.py`)
 - [x] **Phase 4** — AI agent with native tool-use loop + conversation memory (`section-2/agent.py`)
-- [x] **Tests** — Unit tests for models, transform, extraction, and agent (`tests/`)
-- [ ] **Phase 5** — FastAPI endpoints, Dockerfile, pytest suite (`section-5/`)
+- [x] **Phase 5** — FastAPI API + Dockerfile + 18 pytest tests (`section-5/`)
+- [x] **Tests** — 80+ tests across models, transform, extraction, agent, and API (`tests/`)
 - [ ] **Written** — Conceptual questions (`section-1/answers.md`)
 - [ ] **Written** — System design answers (`section-4/design.md`)
 
@@ -62,6 +62,8 @@ models.py             # Pydantic v2 schemas (shared across sections)
   test_transform.py   # Data transformation tests
   test_extract.py     # LLM extraction pipeline tests (mocked + real API)
   test_agent.py       # Agent tool functions + dispatch + API tests
+  test_api.py         # FastAPI endpoint tests (mocked LLM, transform, query)
+.dockerignore
 requirements.txt
 README.md
 ```
@@ -146,6 +148,55 @@ Type `exit`, `quit`, or `bye` to end the session.
 ```bash
 # Run with built-in sample data
 python section-3/transform.py
+```
+
+### Section 5 — FastAPI
+
+```bash
+# Run the API server
+python section-5/app.py
+
+# Or with auto-reload for development
+uvicorn section-5.app:app --reload
+```
+
+API is available at `http://localhost:8000`. Interactive docs at `http://localhost:8000/docs`.
+
+**Endpoints:**
+
+| Method | Path | Description |
+|--------|------|-------------|
+| `POST` | `/invoices/extract` | Extract structured data from raw invoice text via LLM |
+| `POST` | `/invoices/transform` | Transform flat CSV-style records to nested JSON |
+| `POST` | `/invoices/query` | Ask natural language questions about invoices |
+| `GET` | `/invoices` | List all stored invoices (mock + extracted/transformed) |
+| `GET` | `/health` | Health check |
+
+**Example requests:**
+
+```bash
+# Transform flat records
+curl -X POST http://localhost:8000/invoices/transform \
+  -H "Content-Type: application/json" \
+  -d '{"records": [{"invoice_number": "2024-0892", "invoice_date": "15.03.2024", "seller_name": "TechSolutions GmbH", "seller_street": "Musterstrasse 42", "seller_city": "Berlin", "seller_zip": "10115", "seller_country": "DE", "seller_vat_id": "DE123456789", "buyer_name": "Digital Services AG", "buyer_city": "Munchen", "buyer_vat_id": "DE987654321", "item_description": "Cloud Hosting", "item_quantity": "3", "item_unit_price": "450.00", "item_vat_rate": "19", "payment_days": "30", "iban": "DE89370400440532013000"}]}'
+
+# Query invoices via AI agent
+curl -X POST http://localhost:8000/invoices/query \
+  -H "Content-Type: application/json" \
+  -d '{"question": "Which invoices are overdue?", "provider": "gemini"}'
+
+# List all invoices
+curl http://localhost:8000/invoices
+```
+
+### Docker
+
+```bash
+# Build (from project root)
+docker build -f section-5/Dockerfile -t invoice-api .
+
+# Run (pass API keys via .env)
+docker run -p 8000:8000 --env-file .env invoice-api
 ```
 
 ### Running Tests
