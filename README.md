@@ -229,7 +229,6 @@ python -m pytest tests/ -v -k "not Gemini"
 python -m pytest tests/test_extract.py -v -k "Gemini"
 ```
 
-**Note on test structure:** The `tests/__init__.py` file is required so that pytest can discover and import test modules correctly. The section directories use hyphens (`section-1/`, `section-3/`) as required by the assessment spec, but hyphens are invalid in Python imports. The test files handle this via `importlib` to load modules from hyphenated paths.
 
 ## Assumptions
 
