@@ -16,16 +16,16 @@ graph LR
     end
 
     subgraph Core
-        E --> V[Pydantic Validation]
+        E --> V[Schema Validation<br>Pydantic / Zod]
         T --> V
         V --> S[(In-Memory Store)]
         AG -->|tool calls| Tools[search / details / calculate]
-        Tools --> S
+        Tools --> M[(Mock Invoice Data)]
     end
 
     subgraph Output
         S -->|GET /invoices| JSON[Validated Invoice JSON]
-        AG --> Answer[Agent Response]
+        AG --> Answer[Agent Response + Tool Calls]
     end
 ```
 
