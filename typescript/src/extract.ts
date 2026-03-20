@@ -305,5 +305,7 @@ async function main() {
   printValidationReport(result);
 }
 
-// Run if executed directly
-main().catch(console.error);
+// Run if executed directly (not when imported by app.ts)
+if (process.argv[1]?.includes("extract")) {
+  main().catch(console.error);
+}
