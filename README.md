@@ -34,8 +34,8 @@ graph LR
 - [x] **Phase 4** — AI agent with native tool-use loop + conversation memory (`section-2/agent.py`)
 - [x] **Phase 5** — FastAPI API + Dockerfile + 18 pytest tests (`section-5/`)
 - [x] **Tests** — 80+ tests across models, transform, extraction, agent, and API (`tests/`)
-- [ ] **Written** — Conceptual questions (`section-1/answers.md`)
-- [ ] **Written** — System design answers (`section-4/design.md`)
+- [x] **Written** — Conceptual questions (`section-1/answers.md`)
+- [x] **Written** — System design answers (`section-4/design.md`)
 
 ## Project Structure
 
