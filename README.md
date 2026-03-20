@@ -1,6 +1,9 @@
 # BA Assessment — Faidon
 
-An end-to-end invoice processing system built with Python, FastAPI, and the Anthropic SDK.
+An end-to-end invoice processing system built with Python and TypeScript. Both implementations share the same architecture: LLM-powered extraction, data transformation, AI agent with native tool use, and a web API.
+
+- **Python** — FastAPI + Pydantic v2 (port 8000)
+- **TypeScript** — Express + Zod (port 3000) — see [typescript/README.md](typescript/README.md)
 
 ## Architecture
 
@@ -36,6 +39,7 @@ graph LR
 - [x] **Tests** — 80+ tests across models, transform, extraction, agent, and API (`tests/`)
 - [x] **Written** — Conceptual questions (`section-1/answers.md`)
 - [x] **Written** — System design answers (`section-4/design.md`)
+- [x] **Bonus** — Full TypeScript implementation with Express, Zod, and vitest (`typescript/`)
 
 ## Project Structure
 
@@ -63,6 +67,17 @@ models.py             # Pydantic v2 schemas (shared across sections)
   test_extract.py     # LLM extraction pipeline tests (mocked + real API)
   test_agent.py       # Agent tool functions + dispatch + API tests
   test_api.py         # FastAPI endpoint tests (mocked LLM, transform, query)
+/typescript/              # Bonus: full TypeScript implementation
+  src/
+    models.ts            # Zod schemas (Pydantic equivalent)
+    transform.ts         # Data transformation
+    extract.ts           # LLM extraction
+    agent.ts             # AI agent with tool use
+    data.ts              # Shared mock invoice data
+    app.ts               # Express API
+    __tests__/           # Vitest test suite
+  Dockerfile
+  package.json
 .dockerignore
 requirements.txt
 README.md
@@ -192,11 +207,13 @@ curl http://localhost:8000/invoices
 ### Docker
 
 ```bash
-# Build (from project root)
+# Python API (port 8000)
 docker build -f section-5/Dockerfile -t invoice-api .
-
-# Run (pass API keys via .env)
 docker run -p 8000:8000 --env-file .env invoice-api
+
+# TypeScript API (port 3000)
+docker build -f typescript/Dockerfile -t invoice-api-ts .
+docker run -p 3000:3000 --env-file .env invoice-api-ts
 ```
 
 ### Running Tests
